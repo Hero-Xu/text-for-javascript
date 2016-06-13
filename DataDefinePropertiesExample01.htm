@@ -1,0 +1,10 @@
+<script>
+	var person = {};
+	Object.defineProperty(person, "name", {
+		writable: false,
+		value: "wangxu"
+	});
+	alert(person.name);//"wangxu"
+	person.name = "xuxu";//试图对name属性进行修改
+	alert(person.name);//"wangxu"   不能修改！
+</script>
