@@ -1,0 +1,20 @@
+<!-- 工厂模式：用函数来封装特定接口创建对象的细节 -->
+<script>
+	function creatPerson(name, age, job){
+		var o = {};//new object();
+		o.name = name;
+		o.age = 22;
+		o.job = job;
+		o.sayName = function(){
+			alert(this.name);
+		}
+		return o;
+	}
+
+	var person1 = creatPerson("wangxu", 22, "student");
+	var person2 = creatPerson("wangxue", 28, "programmer");
+	person1.sayName();
+	person2.sayName();
+	alert(person2 instanceof Object);
+	alert(person1.name == person2.name);
+</script>

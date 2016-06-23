@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>this关键字</title>
+</head>
+<body>
+	<script>
+	// 1.纯粹的函数调用，this指向全局对象Global
+		// var x = 1;
+		// function text () {
+		// 	this.x = 2;
+		// }
+		// text();
+		// alert(x);//2,说明全局对象的x被改成了2
+	// 2.作为对象方法的调用，这时this指向这个上级对象
+		// function text(){
+		// 	this.x = 2;
+		// }
+		// var o = {};
+		// o.x = 1;
+		// o.m = text;
+		// o.m();
+		// alert(o.x);
+	// 3.作为构造函数调用,所谓构造函数，就是通过这个函数生成一个新对象（object）。这时，this就指这个新对象。
+		// function Text(){
+		// 	this.x = 2;
+		// }
+		// var o = new Text();
+		// alert(o.x);
+	// 4.apply()是函数对象的一个方法，它的作用是改变函数的调用对象，它的第一个参数就表示改变后的调用这个函数的对象。因此，this指的就是这第一个参数。 
+		var x = 1;//全局
+		function text(){
+			alert(this.x);
+		}
+		var o = {};
+		var b = {x: 6};
+		o.x = 0;
+		o.m = text;
+		o.m.apply();//apply不传参数的时候调用全局对象
+		o.m.apply(b);//传参时调用传入的对象
+	</script>
+</body>
+</html>

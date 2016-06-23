@@ -1,0 +1,15 @@
+<!-- prototype:函数的原型属性，每个实例化的对象都共享prototype下的属性和方法 -->
+<script>
+	function Person(){
+		this.name = "xuxu";
+		Person.prototype.name = "wangxu";
+		Person.prototype.age = 22;
+		Person.prototype.sayName = function(){
+			alert(this.name);
+		};
+	}
+	var person1 = new Person();
+	var person2 = new Person();
+	alert(person1.name);
+	
+</script>	

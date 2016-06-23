@@ -1,0 +1,20 @@
+<!-- 构造函数模式：创建自定义的构造函数来生成对象  构造函数的名称首字母大写 规范-->
+<script>
+	function Person (name, age, job) {
+		this.name = name;
+		this.age = age;
+		this.job = job;
+		this.sayName = function(){
+			alert(this.name);
+		};
+	}
+	var person1 = new Person("wangxu", 22, "student");
+	var person2 = new Person("wangxue", 28, "programmer");
+	person1.sayName();//调用 演示
+	person2.sayName();//调用 演示
+	alert(person1.constructor == Person);
+	alert(person1.constructor == Object);//constructor(构造函数)，该属性指向对象的构造函数
+	alert(person1 instanceof Object);//说明创建的对象即是Person的实例，也是Object的实例
+	alert(person1 instanceof Person);
+	alert(person1.name == person2.name);
+</script>
