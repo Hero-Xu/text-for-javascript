@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- 通过闭包实现点击ul中不同li输出相应的内容 -->
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	 <ul id="testUL">
+    <li> index = 0</li>
+    <li> index = 1</li>
+    <li> index = 2</li>
+    <li> index = 3</li>
+  </ul>
+<script type="text/javascript">
+
+//方法一：闭包
+    // var nodes = document.getElementsByTagName("li");
+    // for(var i = 0;i<nodes.length;i+= 1){
+        	
+    //        (function(x){
+    //        		 nodes[i].onclick = function (){
+	   //          	console.log(x);
+	   //          };
+    //        })(i);
+          
+    // }
+
+
+
+
+
+//方法二：js遍历方法 在循环内把i存入到各个li的属性中，然后函数中取出对应的li属性值。
+// 	var nodes = document.getElementsByTagName("li");
+// 	    for(i = 0;i<nodes.length;i+= 1){
+// 	    	nodes[i].index = i;
+// 	        nodes[i].onclick = function(){
+	        	
+// 	        		alert(this.index);
+// 	        };
+// 	    }
+
+
+// 方法三：.使用ES6中的新特性let来声明变量
+//用let来声明的变量将具有块级作用域，很明显可以达到要求，不过需要注意的是得加个'use strict'（使用严格模式）才会生效
+// var myul = document.getElementsByTagName("ul")[0];
+// var list = myul.getElementsByTagName("li");
+ 
+// function foo(){
+//     for(let i = 0, len = list.length; i < len; i++){
+//         list[i].onclick = function(){
+//             alert(i + "----" + this.innerHTML);
+//         }
+//     }
+// }
+// foo();
+
+
+
+// 方法四：兼容性提示：注意ES5的forEach方法的兼容性
+ // var nodeList = document.getElementsByTagName("li") ,
+ //     arr = Array(nodeList.length+1).join("*").split("") ;
+ //     arr.forEach(function(val,i){
+ //        nodeList[i].addEventListener("click", function() {
+ //        alert(i) ;
+ //     }, false);
+ // })
+
+
+
+//方法五： 用到事件代理   优点：只需绑定一次事件  性能好
+  // var oUl = document.getElementById('testUL');
+  // var len = oUl.childNodes.length;//childNodes包括元素节点、属性节点等一系列节点  所以不只是li这个元素节点，这个length不是4
+  // alert(len);
+  // var j = 0;
+  // for(var i=0;i<len;i++){
+  //   var now = oUl.childNodes[i];
+  //   if (now.nodeType == 1) {//为1的时候为元素节点，只有遇到元素节点的时候才给now设置index，这样才能保证数值准确
+  //     now.index = j++;
+  //   };
+  // }
+  // oUl.onclick = function(e){
+  //   alert(e.target.index);
+  // }
+
+//方法六： 使用indexOf()  不过注意只有数组才有这个方法   需要用Array.prototype.slice.call(argument)方法把伪数组转化成数组    方便简洁 推荐使用
+var nodeList = document.getElementsByTagName('li');
+var arr = Array.prototype.slice.call(nodeList);
+for(var i=0;i<arr.length;i++){
+    arr[i].onclick = function(){
+      alert(arr.indexOf(this));//除了使用this也可以使用e.target
+    }
+}
+
+</script>
+</body>
+</html>

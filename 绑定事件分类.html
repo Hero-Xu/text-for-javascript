@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>关于事件的处理程序</title>
+	<!-- 包括html的事件处理程序，dom0，dom2，IE兼容的跨浏览器处理程序 -->
+</head>
+<body>
+	<div id="box">
+		<!-- <input type="button" value="按钮" onclick="showMessage()">//html的事件处理程序 缺点是html和js混在一起了  程序若需要改动两个地方都要修改 -->
+		<input type="button" id="btn1" value="按钮1">
+		<input type="button" id="btn2" value="按钮2">
+		<input type="button" id="btn3" value="按钮3">
+
+	</div>
+	<script>
+		function showMessage(){
+			alert('hi wangxu');
+		}
+		var oBtn1 = document.getElementById('btn1');
+		var oBtn2 = document.getElementById('btn2');
+		var oBtn3 = document.getElementById('btn3');
+		var eventUtile = {
+			addEvent:function(element,type,handle){
+				if (element.addEventListener) {
+					element.addEventListener( type,handle,false);
+				}else if(element.attachEvent){
+					element.attachEvent('on' + type ,handle);
+				}else{
+					element['on' + type] = showMessage;
+				}
+			},
+			removeEvent:function(element ,type ,handle){
+				if (element.removeEventListener) {
+					element.removeEventListener(type ,handle ,false);
+				}else if(element.detachEvent){
+					element.detachEvent(type ,handle);
+				}else{
+					element['on' + type] = null;
+				}
+			}
+		}
+		eventUtile.addEvent(oBtn3,'click',showMessage);
+		// 注意！在添加的时候可以直接把函数传给handle，但是删除的时候不能
+		eventUtile.addEvent(oBtn2,'click',function(){alert('王旭你真帅')});
+		eventUtile.addEvent(oBtn1,'click',function(){alert('你真的好帅')});
+		// 这样的删除就是不可以的，一定要把一个函数名传给handle！
+		eventUtile.removeEvent(oBtn1, 'click' ,function(){alert('你真的好帅')});
+
+
+
+	</script>
+</body>
+</html>
