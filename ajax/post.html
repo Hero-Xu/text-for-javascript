@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>post of ajax</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var XHR = new XMLHttpRequest();
+		XHR.open('POST', 'server-post.php', true);
+		XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		XHR.send('name=wangxu&&age=21');
+		XHR.onreadystatechange = function(){
+			if (XHR.readyState == 4 && XHR.status == 200) {
+				if (XHR.responseText == 'wangxu') {
+					alert("Hello wangxu");
+				}else{
+					alert("Hello SB");
+				};
+			};
+		};
+	</script>
+</body>
+</html>

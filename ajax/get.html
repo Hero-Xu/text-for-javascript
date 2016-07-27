@@ -1,0 +1,30 @@
+<!-- get方式比post方式更快，以放松相同的数据计算，get请求的速度最多是post请求的速度两倍 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>get方式</title>
+</head>
+<body>
+	<script type="text/javascript">
+	//1.创建对象
+		var XHR = new XMLHttpRequest();
+	//2.发送请求
+		XHR.open('GET', 'server.php?name=xuxu&age=21', true);
+		XHR.send(null);//就算不传参数最好也写个null，因为有些浏览器对于这个参数是必须的
+	//3.服务器响应
+		//正常应该把readystatechange事件放在open之前，这样才能保证跨浏览器的兼容性
+		XHR.onreadystatechange = function(){
+			//console.log(XHR.readyState);
+			if (XHR.readyState == 4 && XHR.status == 200) {
+				// console.log(XHR.responseText);
+				if (XHR.responseText == "xuxu") {
+					console.log("成功了呢！");
+				}else{
+					console.log("失败了呢！不要灰心，继续前进");
+				}
+			}
+		};
+	</script>
+</body>
+</html>

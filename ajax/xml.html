@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>xml of ajax</title>
+</head>
+<body>
+	<button id="btn">请求</button>
+	<table id="table">
+		<thead>
+			<tr>
+				<td>名字</td>
+				<td>年龄</td>
+			</tr>
+		</thead>
+		<tbody id="tbody">
+			
+		</tbody>
+	</table>
+	<script type="text/javascript">
+		var oTbody = document.getElementById('tbody');
+		var xhr = new XMLHttpRequest();
+		xhr.open('get', 'server-xml.php', true);
+		xhr.send();
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				if (xhr.responseXML) {
+					var resXml = xhr.responseXML;
+					var oPerson = resXml.getElementsByTagName('person');
+					for(var i = 0; i < oPerson.length; i++){
+						var oName = oPerson[i].getElementsByTagName('name')[0].firstChild.nodeValue;
+						//这里会发现xml与html语言的不同，两者很相似，区别在于xml是自定义可扩展的语言而html是超文本语言，而且xml里的所有东西都是节点，这里<name>下的文本就是文本节点，不存在html的innerHTML，然而有nodeValue这个api
+						var oAge = oPerson[i].getElementsByTagName('age')[0].firstChild.nodeValue;
+						var oTr = document.createElement('tr');
+						var oTdName = document.createElement('td');
+						oTdName.innerHTML = oName;
+						var oTdAge = document.createElement('td');
+						oTdAge.innerHTML = oAge;
+						oTr.appendChild(oTdName);
+						oTr.appendChild(oTdAge);
+						oTbody.appendChild(oTr);
+					}
+				};
+			};
+		};
+	</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象copy</title>
+</head>
+<body>
+	<script>
+	var wangxu = new Object({
+		name: "wangxu"
+	});
+	Object.prototype.a = "666";
+	var xuxu = copyObject(wangxu);
+		function copyObject(orig) {
+		  var copy = Object.create(Object.getPrototypeOf(orig));
+		  copyOwnPropertiesFrom(copy, orig);
+		  return copy;
+		}
+
+		function copyOwnPropertiesFrom(target, source) {
+		  Object
+		  .getOwnPropertyNames(source)
+		  .forEach(function(propKey) {
+		    var desc = Object.getOwnPropertyDescriptor(source, propKey);
+		    Object.defineProperty(target, propKey, desc);
+		  });
+		  return target;
+		}
+
+	</script>
+</body>
+</html>

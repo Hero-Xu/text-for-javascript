@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>json-ajax</title>
+</head>
+<body>
+	<table id="table">
+		<thead>
+			<tr>
+				<td>名字</td>
+				<td>年龄</td>	
+			</tr>
+		</thead>
+		<tbody id="tbody">
+			
+		</tbody>
+	</table>
+	<script type="text/javascript">
+	var oTbody = document.getElementById('tbody');
+		var xhr = new XMLHttpRequest();
+		xhr.open('get', 'server-json.php', true);
+		xhr.send();
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				if (xhr.responseText) {
+					console.log(xhr.responseText);
+					var data = xhr.responseText;
+						data = JSON.parse(data);
+
+					for(var i=0; i<data.length; i++){
+						var oTr = document.createElement('tr');
+						var oTdName = document.createElement('td');
+						var oTdAge = document.createElement('td');
+						oTdName.innerHTML = data[i].name;
+						oTdAge.innerHTML = data[i].age;
+						oTr.appendChild(oTdName);
+						oTr.appendChild(oTdAge);
+						oTbody.appendChild(oTr);
+					}
+				};
+			};
+		};
+	</script>
+</body>
+</html>
