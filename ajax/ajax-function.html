@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!-- 虽然写的不是很健壮，不过封装ajax的核心差不多就是这样-->
+	<title>封装ajax函数</title>
+</head>
+<body>
+	<script type="text/javascript">
+	//调用ajax函数，传入对象指定类型、路径、数据、回调函数、返回的数据类型
+		ajax({
+			type: 'post',
+			url: 'server-json.php',
+			data: {name: 'wangxu', age: '20'},
+			success: function(res){
+				console.log(res);
+			},
+			dataType: 'json'
+		});
+	//函数开始
+		function ajax (obj) {
+			//建立默认的类型和返回类型
+			var setting = {
+				type: 'get',
+				dataType: 'json'
+			};
+			(function (obj, setting) {
+				for(p in obj){
+					setting[p] = obj[p];//这个setting就成为了合并后的对象
+				}
+			})(obj, setting);
+			// xhr.open(setting.type, setting.url, true);
+			//创建XHR对象
+			if (XMLHttpRequest) {
+				var xhr = new XMLHttpRequest();
+			}else{
+				var xhr = new ActiveXObject('Microsoft', 'XMLHTTP');
+			};
+			//要传的参数，get和post方式的不同，所以要做个判断
+			var arg = '';
+				for(p in setting.data){
+					arg += p + '=' + setting.data[p] + '&';
+				}
+				arg = arg.substring(0, arg.length-1);//第二个参数比要截取到的位置多1
+			if (setting.type == 'get') {
+				setting.url = setting.url + '?' + arg;
+				xhr.open('get', setting.url, true);
+				xhr.send();
+			}else{
+				xhr.open('post', setting.url, true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send(arg);
+			}
+			xhr.onreadystatechange = function(){
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					if(setting.dataType == 'xml'){
+						setting.success(xhr.responseXML);
+					}else if(setting.dataType == 'text'){
+						setting.success(xhr.responseText);
+					}else{
+						setting.success(JSON.parse(xhr.responseText));
+					}
+				};
+			};
+		}
+
+	</script>
+</body>
+</html>
