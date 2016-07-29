@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>overrideMimeType()方法</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var XHR = new XMLHttpRequest();
+		XHR.withCredentials = true;
+		alert(XHR.withCredentials);
+		XHR.open('GET', 'http://www.wangxubat.com/testCORS/server.php?name=wangxu', true);//这个地址的服务端返回的是xml数据
+		XHR.overrideMimeType('text/plain');//设置服务端返回的数据类型，这样服务端不需要设置那个header()头也可以了，注意在send()之前使用overrideMimeType，这样才能保证重写响应的MIME类型
+		XHR.send(null);
+		XHR.onreadystatechange = function(){
+			if (XHR.readyState == 4 && XHR.status == 200) {
+				console.log(XHR.responseXML);//会显示null
+				console.log(XHR.responseText);//会显示一个字符串
+
+			}
+		};
+	</script>
+</body>
+</html>
