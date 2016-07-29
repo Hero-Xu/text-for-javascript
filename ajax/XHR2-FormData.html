@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>XMLHttpRequest2级中的FormData对象</title>
+</head>
+<body>
+	<!-- FormData对象为序列化的表单以及创建于表单格式相同的数据提供了便利，可以直接把他传入send（）方法中，便利之处在于不需要post方式的时候再明确的指定XHR的请求头部 -->
+	<form id="user-info">
+		<input type="text" value="wangxu" name="name">
+		<input type="text" value="21" name="age">
+	</form>
+	<script type="text/javascript">
+		var xhr = new XMLHttpRequest();//其实new的时候呀加不加括号都可以
+		// var data = new FormData();
+		// data.append("name", "wangxu");//也可以以这种键值对的形式设置FormData的内容
+		// data.append("age", "21");
+		xhr.open('post', 'server-post.php', true);
+		var form = document.getElementById('user-info');
+		xhr.send(new FormData(form));
+		// xhr.send(data);
+		xhr.onreadystatechange = function(){
+			console.log(xhr.readyState);
+			console.log(xhr.responseText);
+		};
+	</script>
+</body>
+</html>
