@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jsonp 页面1</title>
+	<!-- 我们假设页面1和页面2来自是不同的域，这两个页面的代码放到不同域一定好使，放心兄弟！ -->
+	<!-- 原理：通过script标签没有跨域限制这一特性，在src属性里写上要交互的绝对页面的绝对路径，在路径后面以get方式传递参数，一般要把本页面的回调函数名传过去，另一个页面接收到参数，echo回一个js格式代码，执行callback函数而且把要返回的数据以参数形式传递，参数可以是个json，也许这是之所以叫jsonp的原因吧， 还不如叫script P！！！开个玩笑，jsonp的意思就是填充式json或参数式json，json的确是用参数传递回来的，所以意思还是挺靠谱的 -->
+</head>
+<body>
+	<div id="div1"></div>
+	<script type="text/javascript">
+	var oDiv1 = document.getElementById('div1');
+		function handleResponse (data) {//一个回调函数，请求完另一个页面之后执行
+			oDiv1.innerHTML = data.name;
+			// console.log(data);
+		}
+	</script>
+	<script src="b.php?callback=handleResponse&name=wangxu"></script>
+	<!-- 注意 ，这个在真实环境中应该是一个绝对路径，比如http://www.b.com -->
+</body>
+</html>
