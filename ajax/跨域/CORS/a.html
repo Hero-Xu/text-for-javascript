@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CORS</title>
+	<!-- CORS的XHR与普通的XHR没有什么区别，只是在要请求的php页面设置一个header()，用于指定可以访问他的域-->
+</head>
+<body>
+	<script>
+		var XHR = new XMLHttpRequest();
+		XHR.open('get', 'http://www.wangxubat.com?name=wangxu', true);
+		XHR.send();
+		XHR.onreadystate = function(){
+			if (XHR.readyState == 4 && XHR.status == 200) {
+				console.log(XHR.responseText);
+			};
+		}
+	</script>
+</body>
+</html>
