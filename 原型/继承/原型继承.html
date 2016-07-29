@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原型继承方式例子</title>
+</head>
+<body>
+	<script>
+		function Person (){
+			this.name = "wangxu";
+			this.age = 20;
+		}
+		Person.prototype.study = function(){
+			alert(this.name);
+		}
+		// var wangxu = new Person();
+		// alert(wangxu.name);
+		// wangxu.study();
+		function Man(){
+			Person.call(this);//这样做可以保证Man的实例拥有自己的属性
+		}
+		Man.prototype = Person.prototype;
+		Man.prototype.constructor = Man;//把类的构造函数指向指回Man
+		var wangxu = new Man();
+		alert(wangxu.name);
+	</script>
+	
+</body>
+</html>
