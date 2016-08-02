@@ -17,7 +17,7 @@
 		// alert(wangxu.name);
 		// wangxu.study();
 		function Man(){
-			Person.call(this);//这样做可以保证Man的实例拥有自己的属性
+			Person.call(this);//这样做可以保证Man的实例拥有自己的属性，覆盖原型里的属性
 		}
 		Man.prototype = new Person;
 		Man.prototype.constructor = Man;//把类的构造函数指向指回Man
